@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Исследование · Research</title>
+<style>
+  :root{
+    --bg:#f4f1ec;
+    --card:#ffffff;
+    --ink:#23211d;
+    --muted:#6b665d;
+    --line:#e3ded4;
+    --accent:#7a5c3e;
+    --accent-soft:#efe7da;
+    --focus:#b08850;
+    --req:#a8472e;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji",sans-serif;
+    line-height:1.55;
+    font-size:17px;
+    padding:28px 16px 80px;
+  }
+  .wrap{max-width:720px;margin:0 auto}
+
+  .topbar{
+    display:flex;justify-content:flex-end;align-items:center;
+    gap:8px;margin-bottom:14px;
+  }
+  .langswitch{
+    display:inline-flex;border:1px solid var(--line);border-radius:999px;
+    overflow:hidden;background:var(--card);
+  }
+  .langswitch button{
+    border:0;background:transparent;cursor:pointer;
+    padding:7px 16px;font-size:14px;font-weight:600;color:var(--muted);
+    font-family:inherit;
+  }
+  .langswitch button.active{background:var(--accent);color:#fff}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 28px;margin-bottom:18px;
+  }
+  .card.header{border-top:6px solid var(--accent)}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:.2px}
+  .lede{color:var(--muted);font-size:15px;margin:0 0 18px}
+  .intro p{margin:0 0 13px}
+  .intro p:last-child{margin-bottom:0}
+  .anon{
+    margin-top:18px;padding:12px 14px;background:var(--accent-soft);
+    border-radius:10px;font-size:14.5px;color:#5b4730;
+  }
+
+  .field{margin-bottom:22px}
+  .field:last-child{margin-bottom:0}
+  label.q{display:block;font-weight:600;margin-bottom:4px}
+  .help{display:block;color:var(--muted);font-size:14px;margin-bottom:10px}
+  .req{color:var(--req);font-weight:700;margin-left:2px}
+
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{
+    display:flex;align-items:center;gap:10px;border:1px solid var(--line);
+    border-radius:10px;padding:11px 13px;cursor:pointer;transition:border-color .12s,background .12s;
+  }
+  .opt:hover{border-color:var(--focus)}
+  .opt input{accent-color:var(--accent);width:17px;height:17px;flex:none}
+  .opt span{font-size:15.5px}
+
+  .agegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+  .agegrid .opt{justify-content:center;padding:10px}
+
+  textarea{
+    width:100%;min-height:150px;resize:vertical;font-family:inherit;font-size:15.5px;
+    padding:13px;border:1px solid var(--line);border-radius:10px;color:var(--ink);
+    background:#fdfcfa;
+  }
+  input[type=email]{
+    width:100%;font-family:inherit;font-size:15.5px;padding:12px 13px;
+    border:1px solid var(--line);border-radius:10px;background:#fdfcfa;color:var(--ink);
+  }
+  textarea:focus,input:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:var(--focus)}
+
+  .submit{
+    background:var(--accent);color:#fff;border:0;border-radius:10px;
+    padding:14px 30px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;
+  }
+  .submit:hover{background:#65492f}
+  .footnote{color:var(--muted);font-size:13px;margin-top:14px}
+
+  .msg{display:none;text-align:center;padding:18px}
+  .msg.show{display:block}
+  .msg h2{margin:0 0 8px;font-size:20px}
+  .msg p{margin:0;color:var(--muted)}
+
+  [data-en]{display:none}
+  html[lang="en"] [data-ru]{display:none}
+  html[lang="en"] [data-en]{display:initial}
+  html[lang="en"] p[data-en]{display:block}
+  html[lang="en"] span[data-en],html[lang="en"] label[data-en]{display:initial}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="langswitch" role="group" aria-label="Language">
+      <button type="button" id="btn-ru" class="active" onclick="setLang('ru')">Русский</button>
+      <button type="button" id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <div class="card header">
+    <h1><span data-ru>Исследование</span><span data-en>Research study</span></h1>
+    <p class="lede">
+      <span data-ru>Восприятие материального благополучия</span>
+      <span data-en>The perception of material well-being</span>
+    </p>
+
+    <div class="intro">
+      <p>
+        <span data-ru>Уважаемый участник! Я врач по образованию, нейропсихолог, телесно-ориентированный психотерапевт. Финансы — это один из самых частых запросов в терапии, а вокруг денег больше всего мифов, предрассудков и дезинформации. Разбирая с клиентами их запросы, я обнаружила очень интересные закономерности, о которых мне ранее не встречалось никакой информации. Это положило начало исследованию психологических установок и восприятия различных аспектов жизни. Приглашаю Вас принять участие в небольшом исследовании, посвящённом восприятию материального благополучия и отношению к понятиям «много денег» и «большие деньги».</span>
+        <span data-en>Dear participant! I am a physician by training, a neuropsychologist, and a body-oriented psychotherapist. Finances are one of the most common topics in therapy, yet money is surrounded by more myths, prejudices, and misinformation than almost anything else. While working through my clients' concerns, I discovered some very interesting patterns that I had never seen described anywhere before. That became the starting point for a study of psychological attitudes and the perception of various aspects of life. I invite you to take part in a small study devoted to the perception of material well-being and attitudes toward the notions of "a lot of money" and "big money".</span>
+      </p>
+      <p>
+        <span data-ru>Пожалуйста, перечислите как можно больше преимуществ и недостатков, которые, как вам кажется, связаны с выражениями «иметь много денег», «иметь большие деньги», «быть очень обеспеченным человеком» или «обладать значительным состоянием». Понятия «много денег», «большие деньги» и «состояние» каждый человек понимает по-своему. Прошу Вас опираться на собственное восприятие, жизненный опыт и личные ассоциации. Правильных или неправильных ответов нет — нас интересует исключительно Ваше мнение.</span>
+        <span data-en>Please list as many advantages and disadvantages as you can that you feel are associated with the phrases "having a lot of money", "having big money", "being a very well-off person", or "possessing a significant fortune". Everyone understands the notions of "a lot of money", "big money", and "wealth" in their own way. Please rely on your own perception, life experience, and personal associations. There are no right or wrong answers — we are interested solely in your opinion.</span>
+      </p>
+      <p>
+        <span data-ru>Пожалуйста, не ограничивайтесь рациональными рассуждениями. Если при размышлении о «больших деньгах» у Вас возникают эмоции, опасения, мечты, убеждения, воспоминания или личные ассоциации, пожалуйста, также включите их в свои ответы.</span>
+        <span data-en>Please do not limit yourself to rational reasoning. If, when thinking about "big money", you experience emotions, fears, dreams, beliefs, memories, or personal associations, please include those in your answers as well.</span>
+      </p>
+    </div>
+
+    <div class="anon">
+      <span data-ru>Анкета является анонимной. Если в будущем Вы захотите ознакомиться с результатами исследования, Вы можете по желанию оставить адрес электронной почты. Он не будет использоваться для иных целей. Благодарю Вас за участие!</span>
+      <span data-en>This questionnaire is anonymous. If in future you would like to see the results of the study, you may optionally leave an email address. It will not be used for any other purpose. Thank you for taking part!</span>
+    </div>
+  </div>
+
+  <!-- ===================== FORM ===================== -->
+  <form id="survey">
+
+    <!-- Gender -->
+    <div class="card field">
+      <label class="q">
+        <span data-ru>Пол</span><span data-en>Gender</span><span class="req">*</span>
+      </label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="gender" value="Мужской / Male" required><span data-ru>Мужской</span><span data-en>Male</span></label>
+        <label class="opt"><input type="radio" name="gender" value="Женский / Female"><span data-ru>Женский</span><span data-en>Female</span></label>
+        <label class="opt"><input type="radio" name="gender" value="Не хочу отвечать / Prefer not to say"><span data-ru>Не хочу отвечать</span><span data-en>Prefer not to say</span></label>
+      </div>
+    </div>
+
+    <!-- Age -->
+    <div class="card field">
+      <label class="q">
+        <span data-ru>Возрастная группа</span><span data-en>Age group</span><span class="req">*</span>
+      </label>
+      <div class="opts agegrid">
+        <label class="opt"><input type="radio" name="age" value="18-25" required><span>18–25</span></label>
+        <label class="opt"><input type="radio" name="age" value="25-35"><span>25–35</span></label>
+        <label class="opt"><input type="radio" name="age" value="35-45"><span>35–45</span></label>
+        <label class="opt"><input type="radio" name="age" value="45-55"><span>45–55</span></label>
+        <label class="opt"><input type="radio" name="age" value="55-65"><span>55–65</span></label>
+        <label class="opt"><input type="radio" name="age" value="65-75"><span>65–75</span></label>
+        <label class="opt"><input type="radio" name="age" value="75-85"><span>75–85</span></label>
+        <label class="opt"><input type="radio" name="age" value="85+"><span>85+</span></label>
+      </div>
+    </div>
+
+    <!-- Pros -->
+    <div class="card field">
+      <label class="q" for="pros">
+        <span data-ru>Плюсы / преимущества того, чтобы иметь много денег</span>
+        <span data-en>Pros / advantages of having a lot of money</span>
+        <span class="req">*</span>
+      </label>
+      <span class="help">
+        <span data-ru>Укажите положительные стороны, возможности, преимущества и ресурсы, которые, по Вашему мнению, связаны с тем, чтобы иметь «много денег». Постарайтесь не ограничиваться стандартным набором. Буду благодарна, если вы сможете перечислить минимум 20–30 пунктов.</span>
+        <span data-en>List the positive aspects, opportunities, advantages, and resources that, in your opinion, are associated with having "a lot of money". Try not to limit yourself to the standard set. I would be grateful if you could list at least 20–30 points.</span>
+      </span>
+      <textarea id="pros" name="pros_advantages" required></textarea>
+    </div>
+
+    <!-- Cons -->
+    <div class="card field">
+      <label class="q" for="cons">
+        <span data-ru>Минусы / недостатки того, чтобы иметь много денег</span>
+        <span data-en>Cons / disadvantages of having a lot of money</span>
+        <span class="req">*</span>
+      </label>
+      <span class="help">
+        <span data-ru>Укажите возможные риски, сложности, ограничения, опасения или негативные эмоции и последствия. Постарайтесь не ограничиваться стандартным набором. Буду благодарна, если вы сможете перечислить минимум 20–30 пунктов.</span>
+        <span data-en>List the possible risks, difficulties, limitations, fears, or negative emotions and consequences. Try not to limit yourself to the standard set. I would be grateful if you could list at least 20–30 points.</span>
+      </span>
+      <textarea id="cons" name="cons_disadvantages" required></textarea>
+    </div>
+
+    <!-- Want feedback -->
+    <div class="card field">
+      <label class="q">
+        <span data-ru>Хотели бы Вы получить обратную связь на свои ответы? (в этом случае будет необходимо оставить емейл)</span>
+        <span data-en>Would you like to receive feedback on your answers? (if so, you will need to leave an email)</span>
+      </label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="want_feedback" value="Да / Yes"><span data-ru>Да</span><span data-en>Yes</span></label>
+        <label class="opt"><input type="radio" name="want_feedback" value="Нет / No"><span data-ru>Нет</span><span data-en>No</span></label>
+      </div>
+    </div>
+
+    <!-- Want results -->
+    <div class="card field">
+      <label class="q">
+        <span data-ru>Хотели бы Вы получить результаты исследования? (в этом случае будет необходимо оставить емейл)</span>
+        <span data-en>Would you like to receive the results of the study? (if so, you will need to leave an email)</span>
+      </label>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="want_results" value="Да / Yes"><span data-ru>Да</span><span data-en>Yes</span></label>
+        <label class="opt"><input type="radio" name="want_results" value="Нет / No"><span data-ru>Нет</span><span data-en>No</span></label>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="card field">
+      <label class="q" for="email">
+        <span data-ru>Электронная почта (по желанию)</span>
+        <span data-en>Email (optional)</span>
+      </label>
+      <span class="help">
+        <span data-ru>Если Вы хотите получить обратную связь или результаты исследования, пожалуйста, оставьте свой емейл.</span>
+        <span data-en>If you would like to receive feedback or the study results, please leave your email.</span>
+      </span>
+      <input type="email" id="email" name="email" autocomplete="off" placeholder="name@example.com">
+    </div>
+
+    <div class="card">
+      <button type="submit" class="submit">
+        <span data-ru>Отправить</span><span data-en>Submit</span>
+      </button>
+      <p class="footnote">
+        <span data-ru>Никогда не указывайте пароли через эту форму. Анкета анонимна.</span>
+        <span data-en>Never share passwords through this form. The questionnaire is anonymous.</span>
+      </p>
+    </div>
+  </form>
+
+  <!-- Thank-you message -->
+  <div class="card msg" id="thanks">
+    <h2><span data-ru>Спасибо за участие!</span><span data-en>Thank you for taking part!</span></h2>
+    <p><span data-ru>Ваши ответы получены анонимно. Благодарю Вас!</span><span data-en>Your answers have been received anonymously. Thank you!</span></p>
+  </div>
+
+</div>
+
+<script>
+  function setLang(l){
+    document.documentElement.lang = l;
+    document.getElementById('btn-ru').classList.toggle('active', l==='ru');
+    document.getElementById('btn-en').classList.toggle('active', l==='en');
+  }
+
+  // ---- Supabase connection (public, insert-only key — safe to ship) ----
+  var SUPABASE_URL = 'https://pxpodwsplkosfbcradhd.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_aAKjbgRGWNXtXIt5cV-sYw_VMhCMeEX';
+
+  var form = document.getElementById('survey');
+  var submitBtn = form.querySelector('.submit');
+
+  function val(name){
+    var el = form.elements[name];
+    if(!el) return '';
+    if(el.length !== undefined && el.value === undefined){ // radio group
+      for(var i=0;i<el.length;i++){ if(el[i].checked) return el[i].value; }
+      return '';
+    }
+    return el.value || '';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;   // enforce required fields
+
+    var payload = {
+      lang: document.documentElement.lang,
+      gender: val('gender'),
+      age_group: val('age'),
+      pros: val('pros_advantages'),
+      cons: val('cons_disadvantages'),
+      want_feedback: val('want_feedback'),
+      want_results: val('want_results'),
+      email: val('email') || null
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = .6;
+
+    fetch(SUPABASE_URL + '/rest/v1/survey_responses', {
+      method:'POST',
+      headers:{
+        'apikey': SUPABASE_KEY,
+        'Authorization':'Bearer ' + SUPABASE_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(r.ok){
+        showThanks();
+      } else {
+        submitBtn.disabled = false; submitBtn.style.opacity = 1;
+        alert(document.documentElement.lang === 'en'
+          ? 'Submission error. Please try again.'
+          : 'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.');
+      }
+    }).catch(function(){
+      submitBtn.disabled = false; submitBtn.style.opacity = 1;
+      alert(document.documentElement.lang === 'en'
+        ? 'Network error. Please check your connection and try again.'
+        : 'Ошибка сети. Проверьте подключение и попробуйте ещё раз.');
+    });
+  });
+
+  function showThanks(){
+    form.style.display='none';
+    document.getElementById('thanks').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
