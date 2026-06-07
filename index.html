@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Исследование · Research</title>
+<title>Психологическое исследование · Psychological research</title>
 <style>
   :root{
     --bg:#f4f1ec;
@@ -35,7 +35,7 @@
   }
   .langswitch{
     display:inline-flex;border:1px solid var(--line);border-radius:999px;
-    overflow:hidden;background:var(--card);
+    overflow:hidden;background:var(--card);flex-wrap:wrap;
   }
   .langswitch button{
     border:0;background:transparent;cursor:pointer;
@@ -53,6 +53,8 @@
   .lede{color:var(--muted);font-size:15px;margin:0 0 18px}
   .intro p{margin:0 0 13px}
   .intro p:last-child{margin-bottom:0}
+  .intro ul{margin:4px 0 13px 22px;padding:0}
+  .intro li{margin:0 0 5px}
   .anon{
     margin-top:18px;padding:12px 14px;background:var(--accent-soft);
     border-radius:10px;font-size:14.5px;color:#5b4730;
@@ -99,11 +101,17 @@
   .msg h2{margin:0 0 8px;font-size:20px}
   .msg p{margin:0;color:var(--muted)}
 
-  [data-en]{display:none}
+  /* ---- Language visibility: Russian is default; others hidden until selected ---- */
+  [data-en],[data-cs],[data-de]{display:none}
   html[lang="en"] [data-ru]{display:none}
   html[lang="en"] [data-en]{display:initial}
-  html[lang="en"] p[data-en]{display:block}
-  html[lang="en"] span[data-en],html[lang="en"] label[data-en]{display:initial}
+  html[lang="cs"] [data-ru]{display:none}
+  html[lang="cs"] [data-cs]{display:initial}
+  html[lang="de"] [data-ru]{display:none}
+  html[lang="de"] [data-de]{display:initial}
+  /* List items stay block-level when active */
+  html[lang="en"] li[data-en],html[lang="cs"] li[data-cs],html[lang="de"] li[data-de]{display:list-item}
+  li[data-en],li[data-cs],li[data-de]{display:none}
 </style>
 </head>
 <body>
@@ -113,35 +121,97 @@
     <div class="langswitch" role="group" aria-label="Language">
       <button type="button" id="btn-ru" class="active" onclick="setLang('ru')">Русский</button>
       <button type="button" id="btn-en" onclick="setLang('en')">English</button>
+      <button type="button" id="btn-cs" onclick="setLang('cs')">Čeština</button>
+      <button type="button" id="btn-de" onclick="setLang('de')">Deutsch</button>
     </div>
   </div>
 
   <!-- ===================== HEADER ===================== -->
   <div class="card header">
-    <h1><span data-ru>Исследование</span><span data-en>Research study</span></h1>
+    <h1>
+      <span data-ru>Психологическое исследование</span>
+      <span data-en>Psychological research</span>
+      <span data-cs>Psychologický výzkum</span>
+      <span data-de>Psychologische Forschung</span>
+    </h1>
     <p class="lede">
-      <span data-ru>Восприятие материального благополучия</span>
-      <span data-en>The perception of material well-being</span>
+      <span data-ru>Восприятие богатства и финансового благополучия</span>
+      <span data-en>The perception of wealth and financial well-being</span>
+      <span data-cs>Vnímání bohatství a finančního blahobytu</span>
+      <span data-de>Die Wahrnehmung von Reichtum und finanziellem Wohlergehen</span>
     </p>
 
     <div class="intro">
       <p>
-        <span data-ru>Уважаемый участник! Я врач по образованию, нейропсихолог, телесно-ориентированный психотерапевт. Финансы — это один из самых частых запросов в терапии, а вокруг денег больше всего мифов, предрассудков и дезинформации. Разбирая с клиентами их запросы, я обнаружила очень интересные закономерности, о которых мне ранее не встречалось никакой информации. Это положило начало исследованию психологических установок и восприятия различных аспектов жизни. Приглашаю Вас принять участие в небольшом исследовании, посвящённом восприятию материального благополучия и отношению к понятиям «много денег» и «большие деньги».</span>
-        <span data-en>Dear participant! I am a physician by training, a neuropsychologist, and a body-oriented psychotherapist. Finances are one of the most common topics in therapy, yet money is surrounded by more myths, prejudices, and misinformation than almost anything else. While working through my clients' concerns, I discovered some very interesting patterns that I had never seen described anywhere before. That became the starting point for a study of psychological attitudes and the perception of various aspects of life. I invite you to take part in a small study devoted to the perception of material well-being and attitudes toward the notions of "a lot of money" and "big money".</span>
+        <span data-ru>Уважаемый участник! По образованию я врач и работаю нейропсихологом и телесно-ориентированным психотерапевтом.</span>
+        <span data-en>Dear participant, my background is in medicine, and I work as a neuropsychologist and body-oriented psychotherapist.</span>
+        <span data-cs>Vážená účastnice, vážený účastníku! Mám lékařské vzdělání a pracuji jako neuropsycholožka a tělově orientovaná psychoterapeutka.</span>
+        <span data-de>Sehr geehrte Teilnehmerin, sehr geehrter Teilnehmer! Ich habe eine medizinische Ausbildung und arbeite als Neuropsychologin und körperorientierte Psychotherapeutin.</span>
       </p>
       <p>
-        <span data-ru>Пожалуйста, перечислите как можно больше преимуществ и недостатков, которые, как вам кажется, связаны с выражениями «иметь много денег», «иметь большие деньги», «быть очень обеспеченным человеком» или «обладать значительным состоянием». Понятия «много денег», «большие деньги» и «состояние» каждый человек понимает по-своему. Прошу Вас опираться на собственное восприятие, жизненный опыт и личные ассоциации. Правильных или неправильных ответов нет — нас интересует исключительно Ваше мнение.</span>
-        <span data-en>Please list as many advantages and disadvantages as you can that you feel are associated with the phrases "having a lot of money", "having big money", "being a very well-off person", or "possessing a significant fortune". Everyone understands the notions of "a lot of money", "big money", and "wealth" in their own way. Please rely on your own perception, life experience, and personal associations. There are no right or wrong answers — we are interested solely in your opinion.</span>
+        <span data-ru>Деньги и финансы — одни из самых частых тем, возникающих в терапии. При этом мало какие сферы жизни окружены таким количеством мифов, домыслов и противоречивых убеждений. В работе с клиентами я начала замечать повторяющиеся закономерности в том, как люди думают и что чувствуют по поводу денег, — закономерности, которые казались одновременно значимыми и на удивление малоизученными. Это наблюдение стало отправной точкой для более широкого исследования психологических убеждений, установок и представлений, связанных с богатством и финансовым благополучием.</span>
+        <span data-en>Money and finances are among the most common topics that arise in therapy. At the same time, few areas of life are surrounded by as many myths, assumptions, and conflicting beliefs. Through my work with clients, I began noticing recurring patterns in the way people think and feel about money—patterns that seemed both significant and surprisingly underexplored. This observation became the starting point for a broader study of psychological beliefs, attitudes, and perceptions related to wealth and financial well-being.</span>
+        <span data-cs>Peníze a finance patří k nejčastějším tématům, která se v terapii objevují. Zároveň je jen málo oblastí života obklopeno tolika mýty, domněnkami a protichůdnými přesvědčeními. Při práci s klienty jsem začala pozorovat opakující se zákonitosti v tom, jak lidé o penězích přemýšlejí a co k nim cítí — zákonitosti, které se zdály být zároveň významné a překvapivě málo prozkoumané. Toto pozorování se stalo východiskem širšího výzkumu psychologických přesvědčení, postojů a vnímání spojených s bohatstvím a finančním blahobytem.</span>
+        <span data-de>Geld und Finanzen gehören zu den häufigsten Themen, die in der Therapie auftauchen. Zugleich sind nur wenige Lebensbereiche von so vielen Mythen, Annahmen und widersprüchlichen Überzeugungen umgeben. In der Arbeit mit Klientinnen und Klienten begann ich, wiederkehrende Muster darin zu bemerken, wie Menschen über Geld denken und fühlen — Muster, die zugleich bedeutsam und überraschend wenig erforscht schienen. Diese Beobachtung wurde zum Ausgangspunkt einer breiter angelegten Untersuchung psychologischer Überzeugungen, Einstellungen und Wahrnehmungen rund um Reichtum und finanzielles Wohlergehen.</span>
       </p>
       <p>
-        <span data-ru>Пожалуйста, не ограничивайтесь рациональными рассуждениями. Если при размышлении о «больших деньгах» у Вас возникают эмоции, опасения, мечты, убеждения, воспоминания или личные ассоциации, пожалуйста, также включите их в свои ответы.</span>
-        <span data-en>Please do not limit yourself to rational reasoning. If, when thinking about "big money", you experience emotions, fears, dreams, beliefs, memories, or personal associations, please include those in your answers as well.</span>
+        <span data-ru>Я хотела бы пригласить Вас принять участие в небольшом исследовании, посвящённом тому, как люди воспринимают идеи богатства и финансового изобилия и как к ним относятся.</span>
+        <span data-en>I would like to invite you to participate in a brief research project exploring how people perceive and relate to the ideas of wealth and financial abundance.</span>
+        <span data-cs>Ráda bych Vás pozvala k účasti v krátkém výzkumném projektu, který zkoumá, jak lidé vnímají představy bohatství a finančního dostatku a jaký k nim mají vztah.</span>
+        <span data-de>Ich möchte Sie einladen, an einem kurzen Forschungsprojekt teilzunehmen, das untersucht, wie Menschen die Vorstellungen von Reichtum und finanzieller Fülle wahrnehmen und sich zu ihnen verhalten.</span>
+      </p>
+      <p>
+        <span data-ru>Пожалуйста, перечислите как можно больше преимуществ и недостатков, которые приходят Вам в голову, когда Вы думаете о следующем:</span>
+        <span data-en>Please list as many advantages and disadvantages as come to mind when you think about:</span>
+        <span data-cs>Uveďte prosím co nejvíce výhod a nevýhod, které Vás napadnou, když přemýšlíte o následujícím:</span>
+        <span data-de>Bitte nennen Sie so viele Vor- und Nachteile, wie Ihnen einfallen, wenn Sie an Folgendes denken:</span>
+      </p>
+      <ul>
+        <li data-ru>Иметь много денег</li>
+        <li data-en>Having a lot of money</li>
+        <li data-cs>Mít hodně peněz</li>
+        <li data-de>Viel Geld haben</li>
+
+        <li data-ru>Быть богатым</li>
+        <li data-en>Being wealthy</li>
+        <li data-cs>Být bohatý</li>
+        <li data-de>Wohlhabend sein</li>
+
+        <li data-ru>Располагать значительными финансовыми ресурсами</li>
+        <li data-en>Having significant financial resources</li>
+        <li data-cs>Disponovat značnými finančními prostředky</li>
+        <li data-de>Über erhebliche finanzielle Mittel verfügen</li>
+
+        <li data-ru>Обладать существенным состоянием</li>
+        <li data-en>Possessing substantial wealth</li>
+        <li data-cs>Vlastnit značné jmění</li>
+        <li data-de>Beträchtlichen Reichtum besitzen</li>
+      </ul>
+      <p>
+        <span data-ru>То, что считать «большими деньгами» или «богатством», у каждого человека очень разное. Пожалуйста, отвечайте, исходя из собственного понимания, жизненного опыта и личных ассоциаций.</span>
+        <span data-en>What constitutes "a lot of money" or "wealth" varies greatly from person to person. Please answer based on your own understanding, life experience, and personal associations.</span>
+        <span data-cs>To, co představuje „hodně peněz“ nebo „bohatství“, se u každého člověka výrazně liší. Odpovídejte prosím na základě vlastního chápání, životní zkušenosti a osobních asociací.</span>
+        <span data-de>Was „viel Geld“ oder „Reichtum“ ausmacht, ist von Mensch zu Mensch sehr unterschiedlich. Bitte antworten Sie auf der Grundlage Ihres eigenen Verständnisses, Ihrer Lebenserfahrung und Ihrer persönlichen Assoziationen.</span>
+      </p>
+      <p>
+        <span data-ru>Правильных или неправильных ответов нет. Нас интересует исключительно Ваша честная точка зрения.</span>
+        <span data-en>There are no right or wrong answers. We are interested only in your honest perspective.</span>
+        <span data-cs>Neexistují správné ani špatné odpovědi. Zajímá nás výhradně Váš upřímný pohled.</span>
+        <span data-de>Es gibt keine richtigen oder falschen Antworten. Uns interessiert ausschließlich Ihre ehrliche Sichtweise.</span>
+      </p>
+      <p>
+        <span data-ru>Пожалуйста, не ограничивайтесь сугубо рациональными или практическими соображениями. Если мысли о богатстве вызывают у Вас эмоции, страхи, надежды, мечты, воспоминания, убеждения или личные ассоциации, мы призываем Вас также включить их в ответы.</span>
+        <span data-en>Please do not limit yourself to purely rational or practical considerations. If thoughts about wealth evoke emotions, fears, hopes, dreams, memories, beliefs, or personal associations, we encourage you to include those as well.</span>
+        <span data-cs>Neomezujte se prosím pouze na čistě racionální nebo praktické úvahy. Pokud ve Vás myšlenky na bohatství vyvolávají emoce, obavy, naděje, sny, vzpomínky, přesvědčení nebo osobní asociace, vyzýváme Vás, abyste je rovněž zahrnuli.</span>
+        <span data-de>Bitte beschränken Sie sich nicht auf rein rationale oder praktische Überlegungen. Wenn Gedanken an Reichtum bei Ihnen Emotionen, Ängste, Hoffnungen, Träume, Erinnerungen, Überzeugungen oder persönliche Assoziationen hervorrufen, ermutigen wir Sie, auch diese einzubeziehen.</span>
       </p>
     </div>
 
     <div class="anon">
-      <span data-ru>Анкета является анонимной. Если в будущем Вы захотите ознакомиться с результатами исследования, Вы можете по желанию оставить адрес электронной почты. Он не будет использоваться для иных целей. Благодарю Вас за участие!</span>
-      <span data-en>This questionnaire is anonymous. If in future you would like to see the results of the study, you may optionally leave an email address. It will not be used for any other purpose. Thank you for taking part!</span>
+      <span data-ru>Опрос полностью анонимен. Если Вы хотели бы получить краткое изложение результатов после завершения исследования, Вы можете по желанию оставить адрес электронной почты. Он будет использован исключительно для этой цели. Благодарю Вас за уделённое время и участие.</span>
+      <span data-en>This survey is completely anonymous. If you would like to receive a summary of the findings once the study is completed, you may optionally leave your email address. It will be used solely for that purpose. Thank you for your time and participation.</span>
+      <span data-cs>Tento průzkum je zcela anonymní. Pokud byste po dokončení studie chtěl(a) obdržet shrnutí výsledků, můžete dobrovolně zanechat svou e-mailovou adresu. Bude použita výhradně k tomuto účelu. Děkuji Vám za Váš čas a účast.</span>
+      <span data-de>Diese Umfrage ist vollständig anonym. Wenn Sie nach Abschluss der Studie eine Zusammenfassung der Ergebnisse erhalten möchten, können Sie freiwillig Ihre E-Mail-Adresse hinterlassen. Sie wird ausschließlich zu diesem Zweck verwendet. Vielen Dank für Ihre Zeit und Ihre Teilnahme.</span>
     </div>
   </div>
 
@@ -151,19 +221,19 @@
     <!-- Gender -->
     <div class="card field">
       <label class="q">
-        <span data-ru>Пол</span><span data-en>Gender</span><span class="req">*</span>
+        <span data-ru>Пол</span><span data-en>Gender</span><span data-cs>Pohlaví</span><span data-de>Geschlecht</span><span class="req">*</span>
       </label>
       <div class="opts">
-        <label class="opt"><input type="radio" name="gender" value="Мужской / Male" required><span data-ru>Мужской</span><span data-en>Male</span></label>
-        <label class="opt"><input type="radio" name="gender" value="Женский / Female"><span data-ru>Женский</span><span data-en>Female</span></label>
-        <label class="opt"><input type="radio" name="gender" value="Не хочу отвечать / Prefer not to say"><span data-ru>Не хочу отвечать</span><span data-en>Prefer not to say</span></label>
+        <label class="opt"><input type="radio" name="gender" value="Мужской / Male" required><span data-ru>Мужской</span><span data-en>Male</span><span data-cs>Muž</span><span data-de>Männlich</span></label>
+        <label class="opt"><input type="radio" name="gender" value="Женский / Female"><span data-ru>Женский</span><span data-en>Female</span><span data-cs>Žena</span><span data-de>Weiblich</span></label>
+        <label class="opt"><input type="radio" name="gender" value="Не хочу отвечать / Prefer not to say"><span data-ru>Не хочу отвечать</span><span data-en>Prefer not to say</span><span data-cs>Nechci uvádět</span><span data-de>Keine Angabe</span></label>
       </div>
     </div>
 
     <!-- Age -->
     <div class="card field">
       <label class="q">
-        <span data-ru>Возрастная группа</span><span data-en>Age group</span><span class="req">*</span>
+        <span data-ru>Возрастная группа</span><span data-en>Age Group</span><span data-cs>Věková skupina</span><span data-de>Altersgruppe</span><span class="req">*</span>
       </label>
       <div class="opts agegrid">
         <label class="opt"><input type="radio" name="age" value="18-25" required><span>18–25</span></label>
@@ -177,86 +247,106 @@
       </div>
     </div>
 
-    <!-- Pros -->
+    <!-- Advantages -->
     <div class="card field">
       <label class="q" for="pros">
-        <span data-ru>Плюсы / преимущества того, чтобы иметь много денег</span>
-        <span data-en>Pros / advantages of having a lot of money</span>
+        <span data-ru>Преимущества / плюсы того, чтобы иметь много денег</span>
+        <span data-en>Advantages / Benefits of Having a Lot of Money</span>
+        <span data-cs>Výhody / přínosy toho, mít hodně peněz</span>
+        <span data-de>Vorteile / Nutzen, viel Geld zu haben</span>
         <span class="req">*</span>
       </label>
       <span class="help">
-        <span data-ru>Укажите положительные стороны, возможности, преимущества и ресурсы, которые, по Вашему мнению, связаны с тем, чтобы иметь «много денег». Постарайтесь не ограничиваться стандартным набором. Буду благодарна, если вы сможете перечислить минимум 20–30 пунктов.</span>
-        <span data-en>List the positive aspects, opportunities, advantages, and resources that, in your opinion, are associated with having "a lot of money". Try not to limit yourself to the standard set. I would be grateful if you could list at least 20–30 points.</span>
+        <span data-ru>Пожалуйста, перечислите положительные стороны, возможности, преимущества и ресурсы, которые, по Вашему мнению, связаны с наличием большого количества денег или значительного финансового состояния. Постарайтесь не ограничиваться самыми очевидными или часто упоминаемыми ответами. Если у Вас возникают эмоциональные, психологические, социальные или личные ассоциации, пожалуйста, включите их тоже. Я была бы очень признательна, если бы Вы смогли привести не менее 20–30 пунктов.</span>
+        <span data-en>Please list the positive aspects, opportunities, advantages, and resources that, in your opinion, are associated with having a lot of money or significant financial wealth. Try not to limit yourself to the most obvious or commonly mentioned answers. If emotional, psychological, social, or personal associations come to mind, please include those as well. I would greatly appreciate it if you could provide at least 20–30 items.</span>
+        <span data-cs>Uveďte prosím pozitivní stránky, příležitosti, výhody a zdroje, které podle Vás souvisejí s tím, mít hodně peněz nebo značné finanční jmění. Snažte se neomezovat na nejzřejmější nebo nejčastěji uváděné odpovědi. Pokud Vás napadnou emoční, psychologické, sociální nebo osobní asociace, zahrňte je prosím také. Velmi bych ocenila, kdybyste dokázal(a) uvést alespoň 20–30 položek.</span>
+        <span data-de>Bitte nennen Sie die positiven Aspekte, Möglichkeiten, Vorteile und Ressourcen, die Ihrer Meinung nach damit verbunden sind, viel Geld oder ein beträchtliches finanzielles Vermögen zu haben. Versuchen Sie, sich nicht auf die naheliegendsten oder am häufigsten genannten Antworten zu beschränken. Wenn Ihnen emotionale, psychologische, soziale oder persönliche Assoziationen einfallen, beziehen Sie diese bitte ebenfalls ein. Ich wäre Ihnen sehr dankbar, wenn Sie mindestens 20–30 Punkte angeben könnten.</span>
       </span>
       <textarea id="pros" name="pros_advantages" required></textarea>
     </div>
 
-    <!-- Cons -->
+    <!-- Disadvantages -->
     <div class="card field">
       <label class="q" for="cons">
-        <span data-ru>Минусы / недостатки того, чтобы иметь много денег</span>
-        <span data-en>Cons / disadvantages of having a lot of money</span>
+        <span data-ru>Недостатки / минусы того, чтобы иметь много денег</span>
+        <span data-en>Disadvantages / Drawbacks of Having a Lot of Money</span>
+        <span data-cs>Nevýhody / úskalí toho, mít hodně peněz</span>
+        <span data-de>Nachteile / Schattenseiten, viel Geld zu haben</span>
         <span class="req">*</span>
       </label>
       <span class="help">
-        <span data-ru>Укажите возможные риски, сложности, ограничения, опасения или негативные эмоции и последствия. Постарайтесь не ограничиваться стандартным набором. Буду благодарна, если вы сможете перечислить минимум 20–30 пунктов.</span>
-        <span data-en>List the possible risks, difficulties, limitations, fears, or negative emotions and consequences. Try not to limit yourself to the standard set. I would be grateful if you could list at least 20–30 points.</span>
+        <span data-ru>Пожалуйста, перечислите любые возможные риски, трудности, ограничения, опасения, негативные эмоции или нежелательные последствия, которые, по Вашему мнению, могут быть связаны с наличием большого количества денег или значительного финансового состояния. Постарайтесь не ограничиваться самыми очевидными или часто упоминаемыми ответами. Если у Вас возникают эмоциональные, психологические, социальные или личные ассоциации, пожалуйста, включите их тоже. Я была бы очень признательна, если бы Вы смогли привести не менее 20–30 пунктов.</span>
+        <span data-en>Please list any potential risks, challenges, limitations, concerns, negative emotions, or undesirable consequences that, in your opinion, may be associated with having a lot of money or significant financial wealth. Try not to limit yourself to the most obvious or commonly mentioned answers. If emotional, psychological, social, or personal associations come to mind, please include those as well. I would greatly appreciate it if you could provide at least 20–30 items.</span>
+        <span data-cs>Uveďte prosím jakákoli možná rizika, výzvy, omezení, obavy, negativní emoce nebo nežádoucí důsledky, které podle Vás mohou souviset s tím, mít hodně peněz nebo značné finanční jmění. Snažte se neomezovat na nejzřejmější nebo nejčastěji uváděné odpovědi. Pokud Vás napadnou emoční, psychologické, sociální nebo osobní asociace, zahrňte je prosím také. Velmi bych ocenila, kdybyste dokázal(a) uvést alespoň 20–30 položek.</span>
+        <span data-de>Bitte nennen Sie alle möglichen Risiken, Herausforderungen, Einschränkungen, Bedenken, negativen Emotionen oder unerwünschten Folgen, die Ihrer Meinung nach damit verbunden sein können, viel Geld oder ein beträchtliches finanzielles Vermögen zu haben. Versuchen Sie, sich nicht auf die naheliegendsten oder am häufigsten genannten Antworten zu beschränken. Wenn Ihnen emotionale, psychologische, soziale oder persönliche Assoziationen einfallen, beziehen Sie diese bitte ebenfalls ein. Ich wäre Ihnen sehr dankbar, wenn Sie mindestens 20–30 Punkte angeben könnten.</span>
       </span>
       <textarea id="cons" name="cons_disadvantages" required></textarea>
     </div>
 
-    <!-- Want feedback -->
+    <!-- Receive summary -->
     <div class="card field">
       <label class="q">
-        <span data-ru>Хотели бы Вы получить обратную связь на свои ответы? (в этом случае будет необходимо оставить емейл)</span>
-        <span data-en>Would you like to receive feedback on your answers? (if so, you will need to leave an email)</span>
+        <span data-ru>Хотели бы Вы получить краткое изложение результатов исследования?</span>
+        <span data-en>Would you like to receive a summary of the study findings?</span>
+        <span data-cs>Chtěl(a) byste obdržet shrnutí výsledků studie?</span>
+        <span data-de>Möchten Sie eine Zusammenfassung der Studienergebnisse erhalten?</span>
       </label>
+      <span class="help">
+        <span data-ru>Если да, пожалуйста, оставьте адрес электронной почты ниже. Он будет использован только для отправки Вам результатов исследования.</span>
+        <span data-en>If yes, please leave your email address below. Your email will only be used to send you the study findings.</span>
+        <span data-cs>Pokud ano, zanechte prosím níže svou e-mailovou adresu. Bude použita pouze k zaslání výsledků studie.</span>
+        <span data-de>Wenn ja, hinterlassen Sie bitte unten Ihre E-Mail-Adresse. Sie wird nur dazu verwendet, Ihnen die Studienergebnisse zuzusenden.</span>
+      </span>
       <div class="opts">
-        <label class="opt"><input type="radio" name="want_feedback" value="Да / Yes"><span data-ru>Да</span><span data-en>Yes</span></label>
-        <label class="opt"><input type="radio" name="want_feedback" value="Нет / No"><span data-ru>Нет</span><span data-en>No</span></label>
-      </div>
-    </div>
-
-    <!-- Want results -->
-    <div class="card field">
-      <label class="q">
-        <span data-ru>Хотели бы Вы получить результаты исследования? (в этом случае будет необходимо оставить емейл)</span>
-        <span data-en>Would you like to receive the results of the study? (if so, you will need to leave an email)</span>
-      </label>
-      <div class="opts">
-        <label class="opt"><input type="radio" name="want_results" value="Да / Yes"><span data-ru>Да</span><span data-en>Yes</span></label>
-        <label class="opt"><input type="radio" name="want_results" value="Нет / No"><span data-ru>Нет</span><span data-en>No</span></label>
+        <label class="opt"><input type="radio" name="want_results" value="Да / Yes"><span data-ru>Да</span><span data-en>Yes</span><span data-cs>Ano</span><span data-de>Ja</span></label>
+        <label class="opt"><input type="radio" name="want_results" value="Нет / No"><span data-ru>Нет</span><span data-en>No</span><span data-cs>Ne</span><span data-de>Nein</span></label>
       </div>
     </div>
 
     <!-- Email -->
     <div class="card field">
       <label class="q" for="email">
-        <span data-ru>Электронная почта (по желанию)</span>
-        <span data-en>Email (optional)</span>
+        <span data-ru>Адрес электронной почты (по желанию)</span>
+        <span data-en>Email address (optional)</span>
+        <span data-cs>E-mailová adresa (nepovinné)</span>
+        <span data-de>E-Mail-Adresse (optional)</span>
       </label>
       <span class="help">
-        <span data-ru>Если Вы хотите получить обратную связь или результаты исследования, пожалуйста, оставьте свой емейл.</span>
-        <span data-en>If you would like to receive feedback or the study results, please leave your email.</span>
+        <span data-ru>Если Вы хотели бы получить краткое изложение результатов исследования, пожалуйста, оставьте адрес электронной почты ниже. Он будет использован исключительно для этой цели и не будет передан третьим лицам.</span>
+        <span data-en>If you would like to receive a summary of the study findings, please leave your email address below. Your email will be used solely for this purpose and will not be shared with third parties.</span>
+        <span data-cs>Pokud byste chtěl(a) obdržet shrnutí výsledků studie, zanechte prosím níže svou e-mailovou adresu. Bude použita výhradně k tomuto účelu a nebude poskytnuta třetím stranám.</span>
+        <span data-de>Wenn Sie eine Zusammenfassung der Studienergebnisse erhalten möchten, hinterlassen Sie bitte unten Ihre E-Mail-Adresse. Sie wird ausschließlich zu diesem Zweck verwendet und nicht an Dritte weitergegeben.</span>
       </span>
       <input type="email" id="email" name="email" autocomplete="off" placeholder="name@example.com">
     </div>
 
     <div class="card">
       <button type="submit" class="submit">
-        <span data-ru>Отправить</span><span data-en>Submit</span>
+        <span data-ru>Отправить</span><span data-en>Submit</span><span data-cs>Odeslat</span><span data-de>Absenden</span>
       </button>
       <p class="footnote">
-        <span data-ru>Никогда не указывайте пароли через эту форму. Анкета анонимна.</span>
-        <span data-en>Never share passwords through this form. The questionnaire is anonymous.</span>
+        <span data-ru>Никогда не указывайте пароли через эту форму. Опрос анонимен.</span>
+        <span data-en>Never share passwords through this form. The survey is anonymous.</span>
+        <span data-cs>Nikdy neuvádějte hesla prostřednictvím tohoto formuláře. Průzkum je anonymní.</span>
+        <span data-de>Geben Sie niemals Passwörter über dieses Formular weiter. Die Umfrage ist anonym.</span>
       </p>
     </div>
   </form>
 
   <!-- Thank-you message -->
   <div class="card msg" id="thanks">
-    <h2><span data-ru>Спасибо за участие!</span><span data-en>Thank you for taking part!</span></h2>
-    <p><span data-ru>Ваши ответы получены анонимно. Благодарю Вас!</span><span data-en>Your answers have been received anonymously. Thank you!</span></p>
+    <h2>
+      <span data-ru>Спасибо за участие!</span>
+      <span data-en>Thank you for taking part!</span>
+      <span data-cs>Děkujeme za účast!</span>
+      <span data-de>Vielen Dank für Ihre Teilnahme!</span>
+    </h2>
+    <p>
+      <span data-ru>Ваши ответы получены анонимно. Благодарю Вас!</span>
+      <span data-en>Your answers have been received anonymously. Thank you!</span>
+      <span data-cs>Vaše odpovědi byly přijaty anonymně. Děkuji Vám!</span>
+      <span data-de>Ihre Antworten wurden anonym erfasst. Vielen Dank!</span>
+    </p>
   </div>
 
 </div>
@@ -264,8 +354,15 @@
 <script>
   function setLang(l){
     document.documentElement.lang = l;
-    document.getElementById('btn-ru').classList.toggle('active', l==='ru');
-    document.getElementById('btn-en').classList.toggle('active', l==='en');
+    ['ru','en','cs','de'].forEach(function(c){
+      document.getElementById('btn-'+c).classList.toggle('active', c===l);
+    });
+  }
+
+  // Pick a message string based on the active language (ru, en, cs, de)
+  function t(ru,en,cs,de){
+    var l = document.documentElement.lang;
+    return l==='en'?en : l==='cs'?cs : l==='de'?de : ru;
   }
 
   // ---- Supabase connection (public, insert-only key — safe to ship) ----
@@ -295,7 +392,6 @@
       age_group: val('age'),
       pros: val('pros_advantages'),
       cons: val('cons_disadvantages'),
-      want_feedback: val('want_feedback'),
       want_results: val('want_results'),
       email: val('email') || null
     };
@@ -317,15 +413,21 @@
         showThanks();
       } else {
         submitBtn.disabled = false; submitBtn.style.opacity = 1;
-        alert(document.documentElement.lang === 'en'
-          ? 'Submission error. Please try again.'
-          : 'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.');
+        alert(t(
+          'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.',
+          'Submission error. Please try again.',
+          'Chyba při odesílání. Zkuste to prosím znovu.',
+          'Fehler beim Senden. Bitte versuchen Sie es erneut.'
+        ));
       }
     }).catch(function(){
       submitBtn.disabled = false; submitBtn.style.opacity = 1;
-      alert(document.documentElement.lang === 'en'
-        ? 'Network error. Please check your connection and try again.'
-        : 'Ошибка сети. Проверьте подключение и попробуйте ещё раз.');
+      alert(t(
+        'Ошибка сети. Проверьте подключение и попробуйте ещё раз.',
+        'Network error. Please check your connection and try again.',
+        'Chyba sítě. Zkontrolujte prosím připojení a zkuste to znovu.',
+        'Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung und versuchen Sie es erneut.'
+      ));
     });
   });
 
